@@ -47,7 +47,7 @@ void list_destroy(struct node *head, void (free_val(void *)));
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void list_remove(struct node* ptr, void *val, void (*free_val)(void *));
+void list_remove(struct node* ptr, void *val, int (*cmp_val)(void *, void *), void (free_val(void *)));
 
 int list_is_empty(struct node *head);
 void *list_car(struct node *head);
@@ -56,10 +56,11 @@ void *list_value(struct node *head);
 struct node *list_cdr(struct node *head);
 struct node *list_rest(struct node *head);
 struct node *list_from_array(void **data, int length);
-void list_print(struct node *head);
+void list_print(struct node *head, void (*print)(void *));
 int list_length(struct node *head);
 void list_reverse(struct node* head);
 
+// TODO: find? anything else?
 // TODO: remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)
 // cons (?)
 // set-car (?)

@@ -26,7 +26,7 @@ void list_destroy(struct node *head, void (free_val(void *)))
         head = head->next;
 
         if (free_val != NULL && tmp->val != NULL){
-            free_val(head->val);
+            free_val(tmp->val);
         }
 
         free(tmp);
@@ -62,14 +62,14 @@ int list_add(struct node *head, void *val)
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void list_remove(struct node* ptr, void *val, void (free_val(void *)))
+void list_remove(struct node* ptr, void *val, int (*cmp_val)(void *, void *), void (free_val(void *)))
 {
     struct node *tmp;
 
-    if (ptr == NULL) return;
+    if (ptr == NULL || val == NULL) return;
 
     while(ptr->next != NULL){
-        if (ptr->next->val == val){ // TODO: good enough? do we need an equal func?
+        if (cmp_val(ptr->next->val, val)){
             tmp = ptr->next->next;
 
             if (free_val != NULL && ptr->next->val != NULL){
@@ -143,7 +143,7 @@ struct node *list_rest(struct node *head)
 }
 
 // void listCreate-from-array (name TBD)
-struct node *list_from_array(int *data, int length)
+struct node *list_from_array(void **data, int length)
 {
     struct node *l = list();
     int i;
@@ -156,7 +156,7 @@ struct node *list_from_array(int *data, int length)
     return l;
 }
 
-void list_print(struct node *head)
+void list_print(struct node *head, void (*print)(void *))
 {
     struct node *ptr;
     
@@ -164,7 +164,7 @@ void list_print(struct node *head)
 
     ptr = head->next;
     while (ptr){
-        printf("%d\n", ptr->val);
+        print(ptr->val);
         ptr = ptr->next;
     }
 }
