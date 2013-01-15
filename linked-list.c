@@ -147,10 +147,11 @@ struct node *list_from_array(void **data, int length)
 {
     struct node *l = list();
     int i;
+    void *next = data[0];
 
     for (i = 0; i < length; i++){
-        list_add(l, *data);
-        data++;
+        list_add(l, next);
+        next++;
     }
 
     return l;

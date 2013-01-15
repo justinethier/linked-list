@@ -55,7 +55,7 @@ void *list_value(struct node *head);
 
 struct node *list_cdr(struct node *head);
 struct node *list_rest(struct node *head);
-struct node *list_from_array(void **data, int length);
+//struct node *list_from_array(void **data, int length);
 void list_print(struct node *head, void (*print)(void *));
 int list_length(struct node *head);
 void list_reverse(struct node* head);

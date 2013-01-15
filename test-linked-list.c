@@ -70,11 +70,11 @@ void testReading(){
 // TODO: should use assert for tests
 void test(){
     struct node* l = NULL, *r;
-    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-    //l = list_from_array((void **)data, 11);
-    //list_print(l, int_print);
-    //printf("List length = %d\n\n", list_length(l));
-    //list_destroy(l, int_dealloc);
+//    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+//    l = list_from_array((void **)data, 11);
+//    list_print(l, int_print);
+//    printf("List length = %d\n\n", list_length(l));
+//    list_destroy(l, int_dealloc);
 
     l = list();
     list_add(l, int_alloc(1));
