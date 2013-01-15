@@ -1,5 +1,6 @@
 /**
  * An example implementation of a singly-linked list
+ * https://github.com/justinethier/linked-list
  *
  * Written by Justin Ethier, 2012
  */

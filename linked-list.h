@@ -1,5 +1,6 @@
 /**
  * An example implementation of a singly-linked list
+ * https://github.com/justinethier/linked-list
  *
  * Written by Justin Ethier, 2012
  */
@@ -8,8 +9,6 @@
 
 #ifndef __LINKED_LIST_HEADER__
 #define __LINKED_LIST_HEADER__
-
-// TODO: change this to store void pointers????
 
 /**
  * The basic structure that is used to build a list.
@@ -22,7 +21,7 @@
  */
 struct node {
     struct node *next;
-    int val;
+    void *val;
 };
 
 // TODO: comment each of the functions below
@@ -34,18 +33,23 @@ struct node {
  * Constructs a new linked list if a null pointer is passed.
  * Returns a pointer to the beginning of the modified list
  */
-int list_add(struct node *ptr, int val);
+int list_add(struct node *ptr, void *val);
 
 /**
  * Create a new list
  */
 struct node *list();
+
+// TODO: need to pass a func to cleanup each val
 void list_destroy(struct node*);
+
+
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void list_remove(struct node* head, int val);
+// TODO: need a way to free memory, maybe pass a function
+void list_remove(struct node* head, void *val);
 
 int list_is_empty(struct node *head);
 int list_car(struct node *head);
@@ -53,7 +57,7 @@ int list_value(struct node *head);
 
 struct node *list_cdr(struct node *head);
 struct node *list_rest(struct node *head);
-struct node *list_from_array(int *data, int length);
+struct node *list_from_array(void **data, int length);
 void list_print(struct node *head);
 int list_length(struct node *head);
 void list_reverse(struct node* head);
