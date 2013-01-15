@@ -40,20 +40,18 @@ int list_add(struct node *ptr, void *val);
  */
 struct node *list();
 
-// TODO: need to pass a func to cleanup each val
-void list_destroy(struct node*);
+void list_destroy(struct node *head, void (free_val(void *)));
 
 
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-// TODO: need a way to free memory, maybe pass a function
-void list_remove(struct node* head, void *val);
+void list_remove(struct node* ptr, void *val, void (*free_val)(void *));
 
 int list_is_empty(struct node *head);
-int list_car(struct node *head);
-int list_value(struct node *head);
+void *list_car(struct node *head);
+void *list_value(struct node *head);
 
 struct node *list_cdr(struct node *head);
 struct node *list_rest(struct node *head);

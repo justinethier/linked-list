@@ -18,12 +18,17 @@ struct node *list()
     return head;
 }
 
-void list_destroy(struct node *head)
+void list_destroy(struct node *head, void (free_val(void *)))
 {
     struct node *tmp = head;
     while (head){
         tmp = head;
         head = head->next;
+
+        if (free_val != NULL && tmp->val != NULL){
+            free_val(head->val);
+        }
+
         free(tmp);
     }
 }
@@ -35,7 +40,7 @@ void list_destroy(struct node *head)
  * Constructs a new linked list if a null pointer is passed.
  * Returns a pointer to the beginning of the modified list
  */
-int list_add(struct node *head, int val)
+int list_add(struct node *head, void *val)
 {
     struct node *ptr = head;
 
@@ -57,15 +62,20 @@ int list_add(struct node *head, int val)
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */
-void list_remove(struct node* ptr, int val)
+void list_remove(struct node* ptr, void *val, void (free_val(void *)))
 {
     struct node *tmp;
 
     if (ptr == NULL) return;
 
     while(ptr->next != NULL){
-        if (ptr->next->val == val){
+        if (ptr->next->val == val){ // TODO: good enough? do we need an equal func?
             tmp = ptr->next->next;
+
+            if (free_val != NULL && ptr->next->val != NULL){
+                free_val(ptr->next->val);
+            }
+
             free(ptr->next);
             ptr->next = tmp;
         } else {
@@ -106,13 +116,13 @@ int list_is_empty(struct node *head)
     return (head == NULL || head->next == NULL);
 }
 
-int list_car(struct node *head)
+void *list_car(struct node *head)
 {
-    if (head == NULL || head->next == NULL) return -1;
+    if (head == NULL || head->next == NULL) return NULL;
     return head->next->val;
 }
 
-int list_value(struct node *head)
+void *list_value(struct node *head)
 {
     return list_car(head);
 }
