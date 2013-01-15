@@ -142,20 +142,20 @@ struct node *list_rest(struct node *head)
     return list_cdr(head);
 }
 
-// void listCreate-from-array (name TBD)
-struct node *list_from_array(void **data, int length)
-{
-    struct node *l = list();
-    int i;
-    void *next = data[0];
-
-    for (i = 0; i < length; i++){
-        list_add(l, next);
-        next++;
-    }
-
-    return l;
-}
+//// void listCreate-from-array (name TBD)
+//struct node *list_from_array(void **data, int length)
+//{
+//    struct node *l = list();
+//    int i;
+//    void *next = data[0];
+//
+//    for (i = 0; i < length; i++){
+//        list_add(l, next);
+//        next++;
+//    }
+//
+//    return l;
+//}
 
 void list_print(struct node *head, void (*print)(void *))
 {
