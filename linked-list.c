@@ -157,7 +157,7 @@ struct node *list_rest(struct node *head)
 //    return l;
 //}
 
-void list_print(struct node *head, void (*print)(void *))
+void list_for_each(struct node *head, void (*func)(void *))
 {
     struct node *ptr;
     
@@ -165,7 +165,7 @@ void list_print(struct node *head, void (*print)(void *))
 
     ptr = head->next;
     while (ptr){
-        print(ptr->val);
+        func(ptr->val);
         ptr = ptr->next;
     }
 }
