@@ -1,4 +1,6 @@
 # Makefile for a simple linked list implementation
+# https://github.com/justinethier/linked-list
+#
 # Justin Ethier, 2012
 CC=gcc
 CFLAGS=-g
