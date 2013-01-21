@@ -72,7 +72,7 @@ void test(){
     struct node* l = NULL, *r;
 //    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 //    l = list_from_array((void **)data, 11);
-//    list_print(l, int_print);
+//    list_for_each(l, int_print);
 //    printf("List length = %d\n\n", list_length(l));
 //    list_destroy(l, int_dealloc);
 
@@ -87,18 +87,18 @@ void test(){
     list_add(l, int_alloc(5));
     list_remove(l, int_alloc(2), int_cmp, int_dealloc);
     list_reverse(l);
-    list_print(l, int_print);
+    list_for_each(l, int_print);
     printf("List length = %d\n\n", list_length(l));
 
     printf("Rest:\n");
-    list_print(list_rest(l), int_print);
+    list_for_each(list_rest(l), int_print);
     printf("\n");
 
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(5), int_cmp, int_dealloc);
-    list_print(l, int_print);
+    list_for_each(l, int_print);
     printf("List length = %d\n\n", list_length(l));
 }
 
@@ -107,5 +107,5 @@ int main(int argc, char **argv){
     testReading();
     printf("\n");
     test();
-    return 1;
+    return 0;
 }

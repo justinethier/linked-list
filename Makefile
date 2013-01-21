@@ -10,5 +10,6 @@ $(ODIR)/linked-list.o: linked-list.h linked-list.c
 	$(CC) -c linked-list.c -o $(ODIR)/linked-list.o $(CFLAGS)
 test: $(ODIR)/linked-list.o test-linked-list.c
 	$(CC) $(ODIR)/linked-list.o test-linked-list.c -o $(ODIR)/test-ll $(CFLAGS)
+	$(ODIR)/test-ll
 clean:
 	rm -rf $(ODIR)
