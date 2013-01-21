@@ -67,7 +67,7 @@ void testReading(){
     printf("Passed testReading()\n");
 }
 
-// TODO: should use assert for tests
+// TODO: should use assert or xunit for tests
 void test(){
     struct node* l = NULL, *r;
 //    int data[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
@@ -89,6 +89,25 @@ void test(){
     list_reverse(l);
     list_for_each(l, int_print);
     printf("List length = %d\n\n", list_length(l));
+
+    printf("Testing list_set_value:\n");
+    list_set_value(l, int_alloc(10));
+    list_set_value(list_rest(l), int_alloc(20));
+    list_for_each(l, int_print);
+
+    printf("Testing list_set_rest:\n");
+    struct node *l2 = list();
+    list_add(l2, int_alloc(100));
+    list_add(l2, int_alloc(101));
+    list_add(l2, int_alloc(101));
+    list_add(l2, int_alloc(101));
+    list_add(l2, int_alloc(101));
+    struct node *l3 = list();
+    list_add(l3, int_alloc(1100));
+    list_add(l3, int_alloc(1101));
+    list_set_rest(l2, l3);
+    list_for_each(l2, int_print);
+    printf("l2 length = %d\n", list_length(l2));
 
     printf("Rest:\n");
     list_for_each(list_rest(l), int_print);

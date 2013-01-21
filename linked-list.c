@@ -127,6 +127,18 @@ void *list_value(struct node *head)
     return list_car(head);
 }
 
+void list_set_value(struct node *head, void *val)
+{
+    if (head == NULL || head->next == NULL) return;
+    head->next->val = val;
+    return;
+}
+
+void list_set_car(struct node *head, void *val)
+{
+    list_set_value(head, val);
+}
+
 struct node *list_cdr(struct node *head)
 {
     if (head == NULL) return NULL;
@@ -140,6 +152,18 @@ struct node *list_cdr(struct node *head)
 struct node *list_rest(struct node *head)
 {
     return list_cdr(head);
+}
+
+int list_set_rest(struct node *head, struct node *tail)
+{
+    if (head == NULL || tail == NULL) return 0;
+    head->next->next = tail->next;
+    return 1;
+}
+
+int list_set_cdr(struct node *head, struct node *tail)
+{
+    return list_set_rest(head, tail);
 }
 
 //// void listCreate-from-array (name TBD)

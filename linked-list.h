@@ -61,10 +61,22 @@ void *list_value(struct node *head);
 void *list_car(struct node *head);
 
 /**
+ * Change the value at the front of the list
+ */
+void list_set_value(struct node *head, void *val);
+void list_set_car(struct node *head, void *val);
+
+/**
  * Return the tail of the list
  */
 struct node *list_rest(struct node *head);
 struct node *list_cdr(struct node *head);
+
+/**
+ * Change the tail of the list
+ */
+int list_set_rest(struct node *head, struct node *tail);
+int list_set_cdr(struct node *head, struct node *tail);
 
 /**
  * Apply function "func" to each element of the list
@@ -77,8 +89,6 @@ void list_reverse(struct node* head);
 // TODO: find? anything else?
 // TODO: remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)
 // cons (?)
-// set-car (?)
-// set-cdr (?)
 // append
 // list-ref
 // member
