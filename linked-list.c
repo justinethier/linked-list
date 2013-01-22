@@ -59,6 +59,41 @@ int list_add(struct node *head, void *val)
 }
 
 /**
+ * Construct a list containing the given value at the
+ * start of the given list
+ */
+struct node *list_cons(void *val, struct node *lst)
+{
+    struct node *head = list();
+
+    // The head node never contains a value, so create another
+    // node to hold the first value of the list
+    head->next = (struct node *)malloc(sizeof(struct node));
+    head->next->val = val;
+
+    if (list_is_empty(lst)){
+        head->next->next = NULL;
+    } else {
+        head->next->next = lst->next;
+
+        // Deallocate the old lst head
+        free(lst);
+    }
+
+    return head;
+}
+
+struct node *list_add_at_head(void *val, struct node *list)
+{
+    return list_cons(val, list);
+}
+
+void list_append(struct node *first, struct node *second)
+{
+    // TODO
+}
+
+/**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.
  */

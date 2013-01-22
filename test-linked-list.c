@@ -1,11 +1,13 @@
 /**
  * An example implementation of a singly-linked list
+ * https://github.com/justinethier/linked-list
  *
  * Written by Justin Ethier, 2012
  */
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "linked-list.h"
 
 void *int_alloc(int val)
@@ -30,6 +32,15 @@ void int_print(void *val)
 {
     if (val){
         printf("%d\n", *((int *)val));
+    }
+}
+void noop(void *val)
+{
+}
+void str_print(void *val)
+{
+    if (val){
+        printf("%s\n", (char *) val);
     }
 }
 
@@ -61,7 +72,7 @@ void testBasic()
     for (i = 0; i < 5; i++){
         tmp = (int *)list_value(ltmp);
         ltmp = list_rest(ltmp);
-        printf("%d / %d\n", contents[i], *tmp);
+        //printf("%d / %d\n", contents[i], *tmp);
         assert(contents[i] == *tmp);
     }
 
@@ -116,16 +127,16 @@ void test()
     list_add(l, int_alloc(5));
     list_remove(l, int_alloc(2), int_cmp, int_dealloc);
     list_reverse(l);
-    list_for_each(l, int_print);
+    //list_for_each(l, int_print);
     assert(list_length(l) == 4);
 
-    printf("Testing list_set_value:\n");
+    //printf("Testing list_set_value\n");
     list_set_value(l, int_alloc(10));
     list_set_value(list_rest(l), int_alloc(20));
-    list_for_each(l, int_print);
+    //list_for_each(l, int_print);
     assertEqualList(l, cmp1);
 
-    printf("Testing list_set_rest:\n");
+    //printf("Testing list_set_rest\n");
     struct node *l2 = list();
     list_add(l2, int_alloc(100));
     list_add(l2, int_alloc(101));
@@ -136,28 +147,85 @@ void test()
     list_add(l3, int_alloc(1100));
     list_add(l3, int_alloc(1101));
     list_set_rest(l2, l3);
-    list_for_each(l2, int_print);
+    //list_for_each(l2, int_print);
     assertEqualList(l2, cmp2);
     assert(list_length(l2) == 3);
 
-    printf("Rest:\n");
-    list_for_each(list_rest(l), int_print);
-    //TODO: assertEqualList(l, cmp4);
-    printf("\n");
+    //list_for_each(list_rest(l), int_print);
+    assertEqualList(list_rest(l), cmp3);
 
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(1), int_cmp, int_dealloc);
     list_remove(l, int_alloc(5), int_cmp, int_dealloc);
-    list_for_each(l, int_print);
+    //list_for_each(l, int_print);
     assertEqualList(l, cmp4);
     assert(list_length(l2) == 3);
+    printf("Passed test()\n");
+}
+
+void testCons()
+{
+    struct node *l = list(), *tmp;
+    char *s[] = {"a", "b", "c", "d", "e"};
+    int i;
+
+    list_add(l, s[1]);
+    list_add(l, s[2]);
+    list_add(l, s[3]);
+    list_add(l, s[4]);
+
+    l = list_cons(s[0], l);
+    //list_for_each(l, str_print);
+
+    i = 0, tmp = l;
+    while (!list_is_empty(tmp)){
+        char *s_tmp = (char *)list_car(tmp);
+        assert(strncmp(s_tmp, s[i], 2) == 0);
+
+        i++;
+        tmp = list_cdr(tmp);
+    }
+
+    assert(list_length(l) == 5);
+    list_destroy(l, noop);
+    printf("Passed testCons()\n");
+}
+
+void testAppend()
+{
+    struct node *l = list(), *l2 = list(), *tmp;
+    char *s[] = {"a", "b", "c", "d", "e"};
+    int i;
+
+    list_add(l, s[0]);
+    list_add(l, s[1]);
+    list_add(l2, s[2]);
+    list_add(l2, s[3]);
+    list_add(l2, s[4]);
+
+    list_append(l, l2);
+    list_for_each(l, str_print);
+
+//    i = 0, tmp = l;
+//    while (!list_is_empty(tmp)){
+//        char *s_tmp = (char *)list_car(tmp);
+//        assert(strncmp(s_tmp, s[i], 2) == 0);
+//
+//        i++;
+//        tmp = list_cdr(tmp);
+//    }
+//
+//    assert(list_length(l) == 5);
+//    list_destroy(l, noop);
+    printf("Passed testAppend()\n");
 }
 
 int main(int argc, char **argv){
     testBasic();
     testReading();
-    printf("\n");
+    testCons();
+    testAppend();
     test();
     return 0;
 }

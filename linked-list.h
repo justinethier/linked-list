@@ -39,6 +39,17 @@ struct node *list();
 int list_add(struct node *ptr, void *val);
 
 /**
+ * Construct a list containing the given value at the
+ * start of the given list
+ */
+struct node *list_cons(void *val, struct node *list);
+
+/**
+ * A wrapper of list_cons
+ */
+struct node *list_add_at_head(void *val, struct node *list);
+
+/**
  * Free all memory allocated to the list
  */
 void list_destroy(struct node *head, void (free_val(void *)));
@@ -84,6 +95,11 @@ int list_set_cdr(struct node *head, struct node *tail);
 void list_for_each(struct node *head, void (*func)(void *));
 int list_length(struct node *head);
 void list_reverse(struct node* head);
+
+/**
+ * Add the second list to the end of the first
+ */
+void list_append(struct node *first, struct node *second);
 
 //struct node *list_from_array(void **data, int length);
 // TODO: find? anything else?
