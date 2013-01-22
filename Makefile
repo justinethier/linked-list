@@ -34,7 +34,7 @@ $(ODIR)/$(lib_so): $(ODIR)/$(obj)
 $(ODIR)/$(lib_a): $(ODIR)/$(obj)
 	$(AR) rcs $(ODIR)/$(lib_a) $<
 
-$(ODIR)/test-ll: $(ODIR)/$(lib_so)
+$(ODIR)/test-ll: $(ODIR)/$(lib_so) test-linked-list.c
 	$(CC) -Wall test-linked-list.c -L$(ODIR) -lllist -o $(ODIR)/test-ll $(CFLAGS)
 
 unittest: $(ODIR)/test-ll
