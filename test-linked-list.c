@@ -76,7 +76,10 @@ void testBasic()
         assert(contents[i] == *tmp);
     }
 
-    list_remove(l, int_alloc(3), int_cmp, int_dealloc);
+    tmp = int_alloc(3);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    free(tmp);
+
     list_reverse(l);
     assert( 3 == list_length(l));
     assert( 4 == *((int *)list_value(l)));
@@ -114,7 +117,8 @@ void test()
     int cmp1[] = {10, 20, 3, 1},
         cmp2[] = {100, 1100, 1101},
         cmp3[] = {20, 3, 1},
-        cmp4[] = {10, 20, 3};
+        cmp4[] = {10, 20, 3},
+        *tmp;
 
     l = list();
     list_add(l, int_alloc(1));
@@ -125,7 +129,9 @@ void test()
     list_add(l, int_alloc(3));
     list_add(l, int_alloc(4));
     list_add(l, int_alloc(5));
-    list_remove(l, int_alloc(2), int_cmp, int_dealloc);
+    tmp = int_alloc(2);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    free(tmp);
     list_reverse(l);
     //list_for_each(l, int_print);
     assert(list_length(l) == 4);
@@ -147,6 +153,7 @@ void test()
     list_add(l3, int_alloc(1100));
     list_add(l3, int_alloc(1101));
     list_set_rest(l2, l3);
+    free(l3);
     //list_for_each(l2, int_print);
     assertEqualList(l2, cmp2);
     assert(list_length(l2) == 3);
@@ -154,13 +161,19 @@ void test()
     //list_for_each(list_rest(l), int_print);
     assertEqualList(list_rest(l), cmp3);
 
-    list_remove(l, int_alloc(1), int_cmp, int_dealloc);
-    list_remove(l, int_alloc(1), int_cmp, int_dealloc);
-    list_remove(l, int_alloc(1), int_cmp, int_dealloc);
-    list_remove(l, int_alloc(5), int_cmp, int_dealloc);
+    tmp = int_alloc(1);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    free(tmp);
+    tmp = int_alloc(5);
+    list_remove(l, tmp, int_cmp, int_dealloc);
+    free(tmp);
     //list_for_each(l, int_print);
     assertEqualList(l, cmp4);
     assert(list_length(l2) == 3);
+    list_destroy(l, int_dealloc);
+    list_destroy(l2, int_dealloc);
     printf("Passed test()\n");
 }
 
@@ -217,7 +230,8 @@ void testAppend()
 //    }
 //
 //    assert(list_length(l) == 5);
-//    list_destroy(l, noop);
+    list_destroy(l, noop);
+    list_destroy(l2, noop);
     printf("Passed testAppend()\n");
 }
 

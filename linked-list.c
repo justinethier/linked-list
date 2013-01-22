@@ -14,14 +14,15 @@
 struct node *list()
 {
     struct node *head = (struct node *)malloc(sizeof(struct node));
+    head->val = NULL;
     head->next = NULL;
     return head;
 }
 
 void list_destroy(struct node *head, void (free_val(void *)))
 {
-    struct node *tmp = head;
-    while (head){
+    struct node *tmp;
+    while (head != NULL){
         tmp = head;
         head = head->next;
 
