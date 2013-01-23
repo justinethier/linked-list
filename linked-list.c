@@ -38,8 +38,6 @@ void list_destroy(struct node *head, void (free_val(void *)))
  * Add a new node to the end of the linked list. Memory is 
  * allocated from the heap for the new node.
  *
- * Constructs a new linked list if a null pointer is passed.
- * Returns a pointer to the beginning of the modified list
  */
 int list_add(struct node *head, void *val)
 {
