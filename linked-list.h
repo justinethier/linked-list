@@ -101,14 +101,19 @@ void list_reverse(struct node* head);
  */
 void list_append(struct node *first, struct node *second);
 
+/**
+ * Return the value at 'index', or NULL if there is no value
+ * at that location
+ */
+void *list_value_at(struct node *head, int index);
+
+/**
+ * A predicate that determines if the list contains the given value.
+ */
+int list_contains(struct node *head, void *val, int (*cmp_val)(void *, void *));
+
 //struct node *list_from_array(void **data, int length);
-// TODO: find? anything else?
-// TODO: remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)
-// cons (?)
-// append
-// list-ref
-// member
-// assoc (????)
+// TODO: are there any remaining functions from R5RS that make sense (eg: pair? list? probably do not make any sense)?
 // 
 // Selected functions from SRFI-1
 // http://srfi.schemers.org/srfi-1/srfi-1.html#TheProcedures

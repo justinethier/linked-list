@@ -107,6 +107,43 @@ void list_append(struct node *first, struct node *second)
     return;
 }
 
+void *list_value_at(struct node *head, int index)
+{
+    struct node *ptr = head;
+    int i = 0;
+
+    if (ptr == NULL || index < 0) return NULL;
+
+    while (ptr->next != NULL) {
+        ptr = ptr->next;
+
+        if (i == index){
+            return ptr->val;
+        }
+
+        i++;
+    }
+
+    return NULL;
+}
+
+int list_contains(struct node *head, void *val, int (*cmp_val)(void *, void *))
+{
+    struct node *ptr = head;
+
+    if (ptr == NULL) return 0;
+
+    while (ptr->next != NULL) {
+        ptr = ptr->next;
+
+        if (cmp_val(ptr->val, val)){
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 /**
  * Removes nodes from the list with the given value,
  * and frees any memory allocated for them.

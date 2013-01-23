@@ -130,7 +130,10 @@ void test()
     list_add(l, int_alloc(4));
     list_add(l, int_alloc(5));
     tmp = int_alloc(2);
+    assert(list_contains(l, tmp, int_cmp));
+    assert(2 == *((int *)list_value_at(l, 1)));
     list_remove(l, tmp, int_cmp, int_dealloc);
+    assert(!list_contains(l, tmp, int_cmp));
     free(tmp);
     list_reverse(l);
     //list_for_each(l, int_print);
@@ -234,7 +237,8 @@ void testAppend()
     printf("Passed testAppend()\n");
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv)
+{
     testBasic();
     testReading();
     testCons();
