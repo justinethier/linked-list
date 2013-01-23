@@ -91,7 +91,20 @@ struct node *list_add_at_head(void *val, struct node *list)
 
 void list_append(struct node *first, struct node *second)
 {
-    // TODO
+    struct node *ptr = first;
+
+    if (ptr == NULL) return;
+
+    while (ptr->next != NULL) {
+        ptr = ptr->next;
+    }
+
+    if (!list_is_empty(second)){
+        ptr->next = second->next;
+        free(second);
+    }
+
+    return;
 }
 
 /**

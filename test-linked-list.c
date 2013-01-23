@@ -218,20 +218,19 @@ void testAppend()
     list_add(l2, s[4]);
 
     list_append(l, l2);
-    list_for_each(l, str_print);
+    //list_for_each(l, str_print);
 
-//    i = 0, tmp = l;
-//    while (!list_is_empty(tmp)){
-//        char *s_tmp = (char *)list_car(tmp);
-//        assert(strncmp(s_tmp, s[i], 2) == 0);
-//
-//        i++;
-//        tmp = list_cdr(tmp);
-//    }
-//
-//    assert(list_length(l) == 5);
+    i = 0, tmp = l;
+    while (!list_is_empty(tmp)){
+        char *s_tmp = (char *)list_car(tmp);
+        assert(strncmp(s_tmp, s[i], 2) == 0);
+
+        i++;
+        tmp = list_cdr(tmp);
+    }
+
+    assert(list_length(l) == 5);
     list_destroy(l, noop);
-    list_destroy(l2, noop);
     printf("Passed testAppend()\n");
 }
 
